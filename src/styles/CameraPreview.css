@@ -1,0 +1,228 @@
+/* CameraPreview.css */
+
+body .pre-join-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 110px;
+    background-color: #a2b0e1 !important ;
+    background-repeat: repeat-y !important; /* main.css'teki stilin üzerine yazmak için !important kullanıldı */
+    color: white !important; /* main.css'teki renk stilini geçersiz kılar */
+}
+
+body .pre-join-container button {
+    margin-top: 10px;
+    background-color: #1B2653 !important; /* main.css'teki buton rengini geçersiz kılar */
+    color: #fff !important; /* main.css'teki buton yazı rengini geçersiz kılar */
+    border: none !important; /* main.css'teki olası kenarlık stilini geçersiz kılar */
+    padding: 12px 24px; /* Buton için daha iyi bir görsel düzen sağlamak amacıyla padding eklendi */
+    border-radius: 8px; /* Butonun kenarlarını yuvarlayarak daha modern bir görünüm kazandırıldı */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Hover durumunda renk geçişini sağlamak için */
+}
+
+body .pre-join-container button:hover {
+    background-color: #334D92 !important; /* Hover durumunda farklı bir arka plan rengi uygulandı */
+}
+
+/* Camera Preview Container */
+/* CameraPreview.css */
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: flex-start; /* Kontrolleri konteynerin üstüne hizalar */
+}
+
+
+.camera-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 70%;
+    margin-right: 20px;
+}
+
+.video-background {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* CameraPreview.css */
+
+body .pre-join-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 110px;
+    background-color: #a2b0e1 !important ;
+    background-repeat: repeat-y !important; /* main.css'teki stilin üzerine yazmak için !important kullanıldı */
+    color: white !important; /* main.css'teki renk stilini geçersiz kılar */
+}
+
+body .pre-join-container button {
+    margin-top: 10px;
+    background-color: #1B2653 !important; /* main.css'teki buton rengini geçersiz kılar */
+    color: #fff !important; /* main.css'teki buton yazı rengini geçersiz kılar */
+    border: none !important; /* main.css'teki olası kenarlık stilini geçersiz kılar */
+    padding: 12px 24px; /* Buton için daha iyi bir görsel düzen sağlamak amacıyla padding eklendi */
+    border-radius: 8px; /* Butonun kenarlarını yuvarlayarak daha modern bir görünüm kazandırıldı */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Hover durumunda renk geçişini sağlamak için */
+}
+
+body .pre-join-container button:hover {
+    background-color: #334D92 !important; /* Hover durumunda farklı bir arka plan rengi uygulandı */
+}
+
+/* Camera Preview Container */
+/* CameraPreview.css */
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: flex-start; /* Kontrolleri konteynerin üstüne hizalar */
+}
+
+
+.camera-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 70%;
+    margin-right: 20px;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    background-color: black; /* Kamera kapalıyken siyah arka plan */
+    border-radius: 8px;
+    position: relative;
+}
+
+.video-background {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.dropdown, .camera-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #334D92;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown {
+    background-color: #1B2653;
+}
+
+.camera-button:hover {
+    background-color: #4A6BAA;
+}
+
+/* Audio Settings */
+.audio-settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #1B2653;
+    border-radius: 8px;
+    color: white;
+}
+
+/* Background Options */
+.background-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 8px;
+    color: white;
+}
+
+/* Join Control */
+.join-control {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.join-control button {
+    padding: 10px 20px;
+    background-color: #1B2653;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.join-control button:hover {
+    background-color: #334D92;
+}
+
+
+
+
+

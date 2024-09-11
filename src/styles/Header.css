@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1B2653; /* Mavi arka plan */
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.status-dropdown select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    color: #1B2653;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.user-controls button {
+    margin-left: 10px;
+    padding: 8px 15px;
+    background-color: #334D92;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-controls button:hover {
+    background-color: #4A6BAA;
+}

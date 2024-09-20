@@ -1,0 +1,10 @@
+Murat **Randevu bölümünde Bugün tarihi ayarlanacak ve diğer bölümler boş kalacak
+Murat **Temsilci sayfası  Responsive lerine dikkat edilecek
+İkimizde bakalım **Butonlar için aç kapat  olayları düzeltilecek
+İkimizde bakalım **Kaynak cihazlar listesi koyulmaya çalışacak
+Tolga **Link oluştur denilidğinde veritabanına  kayıt atacak
+İkimizde bakalım**Görüntü Kalitesi olayına detaylı bakılacak seçenek sayısı 3 e indirilecektir.
+Tolga **Login sayfaa-ların duvar kağıdı değişecek bulut santarl olacak
+Tolga **Müşteri Sayfası  Yerleşimlere ve responsive e bakılacak
+Tolga ** Kamera kaapt sonrası aaç dediğinde görüntünün gelmemesi  sayfayı yeniledğinde gelmesi durumu
+Tolga **Sayfalardaki butonlar Temsilcideki gibi olsun.  Müşteri sayfasınfaki butonların oval olması

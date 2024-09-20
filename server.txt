@@ -1,0 +1,230 @@
+Murat Ergun, Turkcell Global Bilgi, [20.09.2024 09:27]
+socketRef.current.emit('leave-room', roomId);
+    stopCallTimer();
+    setRepStatus('Çevrimdışı');
+  };
+
+  const toggleMute = () => {
+    setIsMuted(prev => {
+      if (localStream) {
+        localStream.getAudioTracks()[0].enabled = prev;
+      }
+      return !prev;
+    });
+  };
+
+  const toggleCamera = () => {
+    setIsCameraOff(prev => {
+      if (localStream) {
+        localStream.getVideoTracks()[0].enabled = prev;
+      }
+      return !prev;
+    });
+  };
+
+  const startCallTimer = () => {
+    callStartTimeRef.current = new Date();
+    setRepStatus('Çevrimiçi');
+    timerIntervalRef.current = setInterval(() => {
+      const currentTime = new Date();
+      const elapsedTime = Math.floor((currentTime - callStartTimeRef.current) / 1000);
+      const minutes = Math.floor(elapsedTime / 60);
+      const seconds = elapsedTime % 60;
+      setCallTimer(${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')});
+    }, 1000);
+  };
+
+  const stopCallTimer = () => {
+    if (timerIntervalRef.current) {
+      clearInterval(timerIntervalRef.current);
+    }
+    setCallTimer('00:00');
+    setRepStatus('Çevrimdışı');
+  };
+
+  const generateRoomId = () => {
+    const newRoomId = Math.random().toString(36).substr(2, 9);
+    setRoomId(newRoomId);
+    setRoomLink(${window.location.origin}/customer.html?roomId=${newRoomId});
+    socketRef.current.emit('join-room', newRoomId);
+  };
+
+  const copyRoomLink = () => {
+    navigator.clipboard.writeText(roomLink).then(() => {
+      // You can add a notification here that the link was copied
+      console.log('Room link copied to clipboard');
+    });
+  };
+
+  const logout = () => {
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? "http://10.12.103.18:8097" 
+      : "http://localhost:8097";
+    window.location.href = ${baseUrl}/agent/login;
+  };
+
+  return (
+    <>
+      <div className="top-bar">
+        <div className="logo">
+          <img src="/assets/img/logo.png" alt="Global Bilgi Logo"/>
+        </div>
+        <div className="status-info">
+          <div className="status-item" id="cameraStatus" data-status={isCameraOff ? "off" : "on"}>
+            <i className="fas fa-video"></i>
+            <span>Kamera:</span>
+            <div className="status-indicator"></div>
+            <span id="cameraText">{isCameraOff ? "Kapalı" : "Açık"}</span>
+          </div>
+          <div className="status-item" id="micStatus" data-status={isMuted ? "off" : "on"}>
+            <i className="fas fa-microphone"></i>
+            <span>Mikrofon:</span>
+            <div className="status-indicator"></div>
+            <span id="micText">{isMuted ? "Kapalı" : "Açık"}</span>
+          </div>
+          <div className="status-item">
+            <i className="fas fa-user"></i>
+            <span>Temsilci</span>
+            <span id="repStatus">: {repStatus}</span>
+          </div>
+          <div className="status-item">
+            <i className="fas fa-clock"></i>
+            <span id="callTimer">Süre: {callTimer}</span>
+          </div>
+        </div>
+        <div className="logout-side">
+          <i className="fa-solid fa-right-from-bracket"></i>
+          <button id="logout" className="control-button" onClick={logout}>Çıkış</button>
+        </div>
+      </div>
+      <div className="main-content">
+        <div className="video-section">
+          <video ref={remoteVideoRef} id="remoteVideo" autoPlay playsInline></video>
+          <div className="pip-container">
+            <video ref={localVideoRef} id="localVideo" autoPlay muted playsInline></video>
+          </div>
+        </div>
+        <div className="customer-info">
+          {/* You may want to create a separate component for this section */}
+          <div id="appointmentCustomerSection">
+            <h3>Randevu Bilgileri</h3>
+            <div className="info-block">
+              <label htmlFor="appointmentDate">Randevu Tarihi</label>
+              <input type="date" id="appointmentDate" defaultValue="2024-09-06" />
+            </div>
+            <h3>Müşteri Bilgileri</h3>
+            <div className="info-block">
+
+Murat Ergun, Turkcell Global Bilgi, [20.09.2024 09:27]
+<label htmlFor="customerName">Müşteri Adı</label>
+              <input type="text" id="customerName" defaultValue="Nergiz" />
+            </div>
+            <div className="info-block">
+              <label htmlFor="customerEmail">E-Posta</label>
+              <input type="email" id="customerEmail" defaultValue="nergiz.ercivan@globalbilgi.com.tr" />
+            </div>
+            <button id="saveButton" className="control-button">Kaydet</button>
+          </div>
+          <button id="randevuAyarlamaButton" className="control-button" style={{display: 'none'}}>Randevu Ayarla</button>
+          <div id="infoMessageAppointment" style={{display:'none', backgroundColor: '#d9edf7', color: '#31708f', padding: '10px', margin: '10px 0', border: '1px solid #bce8f1', borderRadius: '4px'}}>
+            Randevu bilgileri kaydedildi!
+          </div>
+        </div>
+      </div>
+      <div className="bottom-controls">
+        <button id="startButton" className="control-button" onClick={startCall} disabled={isCallStarted}>Görüşmeyi Başlat</button>
+        <button id="muteButton" className="control-button" onClick={toggleMute} disabled={!isCallStarted}>
+          {isMuted ? 'Mikrofonu Aç' : 'Mikrofonu Kapat'}
+        </button>
+        <button id="cameraButton" className="control-button" onClick={toggleCamera} disabled={!isCallStarted}>
+          {isCameraOff ? 'Kamerayı Aç' : 'Kamerayı Kapat'}
+        </button>
+        <button id="hangupButton" className="control-button" onClick={hangUp} disabled={!isCallStarted}>Görüşmeyi Sonlandır</button>
+        <div className="link-info">
+          <i className="fa-solid fa-link"></i>
+          <input type="text" id="roomLink" value={roomLink} readOnly placeholder="Link oluşturun" />
+          <button id="generateLinkButton" className="control-button" onClick={generateRoomId}>Linki Oluştur</button>
+          <button id="copyButton" className="control-button" onClick={copyRoomLink}>Linki Kopyala</button>
+        </div>
+        <div id="infoMessage" style={{display:'none', backgroundColor: '#d9edf7', color: '#31708f', padding: '10px', margin: '10px 0', border: '1px solid #bce8f1', borderRadius: '4px'}}>
+          Link kopyalandı!
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default VideoChat;
+
+Murat Ergun, Turkcell Global Bilgi, [20.09.2024 09:31]
+require('dotenv').config({ path: .env.${process.env.NODE_ENV} });
+
+const express = require('express');
+const socketIo = require('socket.io');
+const path = require('path');
+const fs = require('fs');
+const apiUrl = process.env.API_URL;
+const app = express();
+let server = null;
+
+if (process.env.NODE_ENV === 'production') {
+    console.log("Production ortamında çalışıyor.");
+    const https = require('https');
+
+    const options = {
+        key: fs.readFileSync('/usr/share/tolga/usr/share/tolga/2/server.key'),
+        cert: fs.readFileSync('/usr/share/tolga/usr/share/tolga/2/server.crt')
+    };
+
+    server = https.createServer(options, app);
+} else {
+    console.log("Development ortamında çalışıyor.");
+    const http = require('http');
+    server = http.createServer(app);
+}
+
+console.log("API URL:", apiUrl);
+const io = socketIo(server);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Handle any requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    socket.on('join-room', (roomId) => {
+        socket.join(roomId);
+        socket.emit('room-joined', roomId);
+        console.log(User joined room: ${roomId});
+    });
+
+    socket.on('offer', ({ offer, roomId }) => {
+        socket.to(roomId).emit('offer', { offer, roomId });
+    });
+
+    socket.on('answer', ({ answer, roomId }) => {
+        socket.to(roomId).emit('answer', { answer, roomId });
+    });
+
+    socket.on('ice-candidate', ({ candidate, roomId }) => {
+        socket.to(roomId).emit('ice-candidate', { candidate, roomId });
+    });
+
+    socket.on('leave-room', (roomId) => {
+        socket.leave(roomId);
+        console.log(User left room: ${roomId});
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
+});
+
+server.listen(8095, () => {
+    console.log('Server is listening on port 8095');
+});
